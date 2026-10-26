@@ -2,6 +2,7 @@
 from datetime import datetime, timedelta, timezone
 import hashlib
 import os
+from supabase import create_client
 import re
 import time
 from decimal import Decimal
@@ -11,6 +12,10 @@ from dotenv import load_dotenv
 from db import connect
 
 load_dotenv()
+# Initialize Supabase client (URL required via SUPABASE_URL env var)
+SUPABASE_URL = os.getenv("SUPABASE_URL", "")
+SUPABASE_KEY = os.getenv("SUPABASE_API_KEY", "")
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 app = Flask(__name__, static_folder=None)
 # Allowed browser origins for cross-origin use (comma-separated). Not needed when Flask serves the site itself.
 _default_origins = "http://127.0.0.1:5500,http://localhost:5500,http://127.0.0.1:8000,http://localhost:8000"
